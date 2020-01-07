@@ -101,7 +101,6 @@ class LabelWindow(Gtk.Window):
     def counter_areas(self, button):
         r = requests.get('http://localhost:8080/counter/areas')
         print(r.json())
-        print(configuration)
 
 window = LabelWindow()        
 window.connect("destroy", Gtk.main_quit)
