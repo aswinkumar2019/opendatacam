@@ -311,16 +311,29 @@ class AnalyseWindow(Gtk.Window):
         r = requests.get(link)
         jsn = json.loads(r.text)
         for key,value in jsn["counterSummary"].items():
-          counter_area = key
-        display = "Counter area is " + str(counter_area)
-        car_count = jsn["counterSummary"][counter_area]["car"]
+          self.counter_area = key
+        display = "Counter area is " + str(self.counter_area)
+        if(dict_digger.dig(jsn, "counterSummary", self.counter_area, "car") == None):
+           car_count = 0
+        else:
+           car_count = jsn["counterSummary"][self.counter_area]["car"]
         display = display + "\nCar count is " + str(car_count)
-        truck_count = jsn["counterSummary"][counter_area]["truck"]
+        if(dict_digger.dig(jsn, "counterSummary", self.counter_area, "truck") == None):
+           truck_count = 0
+        else:
+           truck_count = jsn["counterSummary"][self.counter_area]["truck"]
         display = display + "\nTruck count is " + str(truck_count)
-        bus_count = jsn["counterSummary"][counter_area]["bus"]
+        if(dict_digger.dig(jsn, "counterSummary", self.counter_area, "bus") == None):
+           bus_count = 0
+        else:
+           bus_count = jsn["counterSummary"][self.counter_area]["bus"]
         display = display + "\nBus count is " + str(bus_count)
-        person_count = jsn["counterSummary"][counter_area]["person"]
+        if(dict_digger.dig(jsn, "counterSummary", self.counter_area, "person") == None):
+           person_count = 0
+        else:
+           person_count = jsn["counterSummary"][self.counter_area]["person"]
         display = display + "\nPerson count is " + str(person_count)
+        
         self.label2.set_text(display)
 
    
